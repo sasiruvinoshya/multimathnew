@@ -3,7 +3,7 @@ import './Game.css';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-
+import { useCallback } from 'react';
 
 const sanitizeEmail = (email) => email.replace('@', '_').replace('.', '_');
 
@@ -18,12 +18,10 @@ const Game = () => {
   const shuffledNumbers = shuffleArray([...uniqueMultiplicationAnswers]);
 
   const [board] = useState(shuffledNumbers);
-  const [player1, setPlayer1] = useState('');
-  const [player2, setPlayer2] = useState('');
+  const [player, setPlayer] = useState('');
   const [turn, setTurn] = useState('');
   const [highlightedCells, setHighlightedCells] = useState([]);
   const [winner, setWinner] = useState(null);
-  const [opponentEmail, setOpponentEmail] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
@@ -33,55 +31,48 @@ const Game = () => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setPlayer1(user.email);
-        setTurn(user.email);
+        setPlayer(user.email);
+        setTurn(user.email); // Start with the player's turn
       } else {
         navigate('/login');
       }
     });
   }, [navigate]);
 
-  const addOpponent = () => {
-    if (opponentEmail && opponentEmail !== player1) {
-      setPlayer2(opponentEmail);
-    }
-  };
-
   const updateUserStats = async (isWin) => {
     const auth = getAuth();
     const user = auth.currentUser;
     if (!user) return;
-  
+
     const db = getFirestore();
-    const docRef = doc(db, 'users', user.uid); // Use user.uid instead of email
-    
+    const docRef = doc(db, 'users', user.uid);
+
     try {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        // If stats document exists, update the wins and losses
         const currentStats = docSnap.data();
         const newWins = isWin ? currentStats.wins + 1 : currentStats.wins;
         const newLosses = isWin ? currentStats.losses : currentStats.losses + 1;
-  
+
         await updateDoc(docRef, {
           wins: newWins,
           losses: newLosses,
         });
-  
+
         console.log("Stats updated successfully!");
       } else {
-        // If no stats document exists, create a new one with default values
         await setDoc(docRef, {
-          wins: isWin ? 1 : 0, // If the user wins, initialize wins as 1, otherwise 0
-          losses: isWin ? 0 : 1, // If the user loses, initialize losses as 1, otherwise 0
+          wins: isWin ? 1 : 0,
+          losses: isWin ? 0 : 1,
         });
-  
+
         console.log("New stats document created!");
       }
     } catch (error) {
       console.error('Error updating user stats:', error.message);
     }
   };
+
   const checkWinner = (highlightedCells, playerTurn) => {
     const playerCells = highlightedCells
       .filter((cell) => cell.player === playerTurn)
@@ -139,27 +130,86 @@ const Game = () => {
       if (checkWinner(updatedCells, turn)) {
         setWinner(turn);
         setShowModal(true);
-        updateUserStats(turn, turn === player1 ? player2 : player1);
+        updateUserStats(true); // Update stats if the player wins
       } else {
-        setTurn(turn === player1 ? player2 : player1);
+        setTurn('Computer'); // Switch to computer's turn
       }
     }
   };
 
+  const getAdjacentCells = (product) => {
+    const index = board.indexOf(product);
+    const row = Math.floor(index / 6);
+    const col = index % 6;
+    const adjacentCells = [];
+
+    const directions = [
+      [-1, 0], [1, 0], [0, -1], [0, 1],  // Horizontal and vertical
+      [-1, -1], [-1, 1], [1, -1], [1, 1]  // Diagonals
+    ];
+
+    directions.forEach(([dx, dy]) => {
+      const newRow = row + dx;
+      const newCol = col + dy;
+      if (newRow >= 0 && newRow < 6 && newCol >= 0 && newCol < 6) {
+        const adjacentProduct = board[newRow * 6 + newCol];
+        adjacentCells.push(adjacentProduct);
+      }
+    });
+
+    return adjacentCells;
+  };
+
+  const systemMove = useCallback(() => {
+    const lastPlayerMove = highlightedCells[highlightedCells.length - 1];
+    const adjacentCells = getAdjacentCells(lastPlayerMove.product);
+    const availableMoves = adjacentCells.filter(
+      (cell) => !highlightedCells.some((highlight) => highlight.product === cell)
+    );
+  
+    if (availableMoves.length > 0) {
+      const systemChoice = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+      const updatedCells = [...highlightedCells, { product: systemChoice, player: 'Computer' }];
+      setHighlightedCells(updatedCells);
+  
+      if (checkWinner(updatedCells, 'Computer')) {
+        setWinner('Computer');
+        setShowModal(true);
+        updateUserStats(false); // Update stats if the system wins
+      } else {
+        setTurn(player); // Switch back to player's turn
+      }
+    }
+  }, [highlightedCells, turn, player]);  // Add dependencies for useCallback
+  
+  useEffect(() => {
+    if (turn === 'Computer' && !winner) {
+      systemMove();  // Make the computer move
+    }
+  }, [turn, highlightedCells, winner, systemMove]);  // Add systemMove to dependencies
+
   const renderTableCell = (number) => {
     const isHighlighted = highlightedCells.find((cell) => cell.product === number);
     const cellClass = isHighlighted
-      ? isHighlighted.player === player1
-        ? 'highlight-player1'
-        : 'highlight-player2'
+      ? isHighlighted.player === player
+        ? 'highlight-player'
+        : 'highlight-computer'
       : '';
 
     return (
-      <td key={number} className={`table-cell ${cellClass}`}>
+      <td key={number} className={`table-cell ${cellClass}`} onClick={() => {
+        if (turn === player) {
+          const num1 = Math.floor(number / 9) + 1;
+          const num2 = number % 9 + 1;
+          handlePlayerInput(num1, num2);
+        }
+      }}>
         {number}
       </td>
     );
   };
+
+
 
   return (
     <>
@@ -176,32 +226,21 @@ const Game = () => {
               const num2 = parseInt(document.getElementById('num2').value);
               handlePlayerInput(num1, num2);
             }}
-            disabled={!!winner}
           >
             Submit
           </button>
-          <input
-            type="email"
-            placeholder="Opponent Email"
-            value={opponentEmail}
-            onChange={(e) => setOpponentEmail(e.target.value)}
-          />
-          <button onClick={addOpponent}>Add Opponent</button>
         </div>
-
-        <div className="table">
-          <table className="game-table">
-            <tbody>
-              {[...Array(6)].map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {board.slice(rowIndex * 6, (rowIndex + 1) * 6).map(renderTableCell)}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {showModal && (
+        <table className="multiplication-grid">
+          <tbody>
+            {Array.from({ length: 6 }, (_, row) => (
+              <tr key={row}>
+                {board.slice(row * 6, (row + 1) * 6).map(renderTableCell)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {showModal && (
           <div className="winner-modal">
             <div className="modal-content">
               <h2>Congratulations, {winner}!</h2>
@@ -211,7 +250,6 @@ const Game = () => {
             </div>
           </div>
         )}
-      </div>
     </>
   );
 };
