@@ -1,0 +1,119 @@
+/* Container styling */
+.banana-challenge-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.challenge-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  background-color: #ffcc009e;
+  padding: 20px 80px 20px 80px;
+  border-radius: 50px;
+}
+
+
+.challenge-image {
+  max-width: 1000px;  
+  margin-left: -20px;
+  margin-top: 15px;
+  border-radius: 20px;
+}
+
+
+.guess-container {
+  margin: 20px 0;
+  text-align: left;
+  background-color: rgba(231, 226, 226, 0.838);
+  padding: 50px 50px 50px 50px;
+  border-radius: 20px;
+}
+
+.guess-input {
+  width: 250px; 
+  margin-left: 250px;
+}
+
+.guess-text{
+  font-size: 25px;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+
+.submit-button {
+  padding: 12px 24px;
+  background-color: #ffcc00;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+.feedback {
+  font-size: 18px;
+  color: green;
+}
+
+/* Pop-up Modal */
+.winner-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+  z-index: 1000;
+}
+
+.banana-modal-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  border: 5px solid rgb(0, 171, 0); /* Initial green border */
+  animation: explode 0.8s ease forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+    border-color: green;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+    border-color: limegreen; /* More vibrant green at halfway */
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    border-color: lightgreen; /* Final lighter border */
+  }
+}
+
+.modal-content h2 {
+  color: green;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.modal-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: limegreen;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+  background-color: darkgreen;
+}

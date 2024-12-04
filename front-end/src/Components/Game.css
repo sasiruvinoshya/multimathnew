@@ -1,0 +1,269 @@
+/* Game.css */
+.game-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+button:hover {
+  background-color: darkgreen;
+}
+
+.game-table {
+  margin-left: 80px;
+  border-collapse: collapse;
+  width: 600px;
+  height: 500px;
+  background-color: rgba(255, 255, 255, 0.904);
+  border-radius: 10px;
+  
+}
+
+.game-table td {
+  border: 2px solid black;
+  text-align: center;
+  font-size: 2.2rem;
+  width: 60px;
+  height: 60px;
+}
+
+
+.table-cell {
+  transition: background-color 0.4s ease;
+}
+
+.highlight-player1 {
+  background-color: rgba(16, 16, 160, 0.958);
+  color: white;
+}
+
+.highlight-player2 {
+  background-color: rgba(255, 166, 0, 0.938);
+  color: white;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column; /* Change to column to stack inputs and button */
+  align-items: center;
+  gap: 10px; /* Adds spacing between inputs and the button */
+  margin-top: 300px;
+  margin-right: 200px;
+
+  background-color: #c1c5c1e7;
+  border-radius: 10px;
+  padding: 30px 60px 30px 60px;
+}
+.table{
+  margin-top: 300px;
+  margin-bottom: -800px;
+}
+/* Jumping Animation for h3 Heading */
+h3 {
+  font-size: 2.5rem;
+  color: #4caf50;
+  text-align: center;
+  font-weight: bold;
+  animation: jump 2s infinite ease-in-out;
+  position: relative;
+  margin-bottom: -250px;
+
+}
+
+@keyframes jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px); /* Adjust height of jump */
+  }
+}
+
+h3:hover {
+  color: #ff5722;
+  animation: jump-hover 1s infinite ease-in-out;
+}
+
+@keyframes jump-hover {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px); /* Higher jump on hover */
+  }
+}
+.input-container label {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: rgb(6, 5, 5);
+  font-weight:600;
+}
+
+.input-container input {
+  font-size: 18px;
+  margin: 5px 0;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 60px;
+  text-align: center;
+}
+
+.input-container button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-container button:hover {
+  background-color: #45a049;
+}
+
+.winner-announcement {
+  font-size: 32px;
+  color: white;
+  margin-top: 20px;
+}
+
+.bonus-button {
+  padding: 15px 25px;
+  font-size: 18px;
+  background-color: gold;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bonus-button:hover {
+  background-color: darkorange;
+}
+
+/* Pop-up Modal */
+.winner-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Slight transparency to focus on modal */
+  z-index: 1000;
+  
+}
+
+.modal-content {
+  background-color: #ffffffe9;
+  padding-top: 50px;
+  padding-right: 50px;
+  padding-left: 35px;
+  padding-bottom: 50px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 5px solid green; /* Initial green border */
+  animation: explode 0.8s ease forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+    border-color: green;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+    border-color: limegreen; /* More vibrant green at halfway */
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    border-color: lightgreen; /* Final lighter border */
+  }
+}
+
+.modal-content h2 {
+  color: green;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  
+}
+
+.modal-content button {
+  margin-top: 20px;
+  margin-right: 50px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: limegreen;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: rgb(254, 230, 14);
+  color: black;
+}
+
+
+.player-info {
+  flex: 1;
+  font-size: 2rem;
+  color: black; /* Changed to black for better visibility */
+  margin-right: 20px;
+  text-align: center;
+  background-color: rgba(239, 237, 226, 0.612);
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 40px;
+  border-radius: 10px;
+  
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 10px;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  outline: none;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darkgreen;
+}
+
+.searching-opponent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+  background-color: rgba(16, 110, 196, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+}

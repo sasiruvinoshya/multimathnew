@@ -1,0 +1,176 @@
+/* src/App.css */
+
+body {
+  font-family: 'Raleway', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
+  background-image: url('../public/homeimage.jpg'); /* Correct path with relative URL */
+  background-size: cover; /* Ensures the image covers the entire screen */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-attachment: fixed; /* Keeps the background fixed during scroll */
+}
+
+
+
+.main-header {
+  background-color: #007bffd6; /* Blue color */
+  color: white;
+  padding: 1rem;
+  text-align: center; /* Center the content */
+  position: fixed; /* Stick to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.nav-container {
+  display: flex;
+  justify-content:right;
+  align-items: center; 
+}
+
+.game-name {
+  color: #fff;
+  font-size: 30px;
+  font-family: 'Fredoka One', cursive;
+  animation: slideIn 2s ease-out;
+}
+
+.nav-link{
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 1000;
+  transition: color 0.3s;
+  margin-right: 50px;
+  font-family: 'Fredoka One', cursive;
+}
+
+.nav-link-home{
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 1000;
+  transition: color 0.3s;
+  margin-left: auto;
+  margin-right: 60px;
+  font-family: 'Fredoka One', cursive; /* Push to the right */
+
+}
+
+
+
+.nav-link-home:hover, .nav-link:hover {
+  color: #ffe082;
+}
+
+.main-container {
+  margin-top: 80px;
+  animation: fadeIn 2s;
+}
+
+h2 {
+  color: #ff4081;
+  font-size: 50px;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px #ffd54f;
+  animation: bounce 1.5s infinite;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+
+
+.action-button {
+  display: inline-block;
+  padding: 20px 50px;
+  font-size: 24px;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: popIn 1s ease-out;
+  font-weight: 600;
+}
+
+.login-button {
+  background-color: #0e94e7;
+  color: #ffffff;
+  box-shadow: 0 8px 15px rgba(255, 235, 59, 0.3);
+}
+
+.register-button {
+  background-color: #88ff00;
+  color: #fff;
+  box-shadow: 0 8px 15px rgba(139, 195, 74, 0.3);
+}
+
+.action-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(-100%);
+  }
+  to {
+      transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+  }
+  40% {
+      transform: translateY(-20px);
+  }
+  60% {
+      transform: translateY(-10px);
+  }
+}
+
+@keyframes popIn {
+  0% {
+      transform: scale(0.7);
+      opacity: 0;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+/* src/App.css */
+
+.profile-icon {
+  font-size: 60px; /* Adjust size as needed */
+  color: #1b2447; /* Gold color for visibility */
+  margin-left: 20px; /* Space between links and icon */
+  cursor: pointer; /* Change cursor on hover */
+  transition: transform 0.3s ease;
+  margin-right: 30px;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}

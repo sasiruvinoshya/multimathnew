@@ -1,0 +1,97 @@
+/* src/Components/Home.css */
+
+.home-page-container {
+    text-align: center;
+    padding: 50px;
+    margin-top: 80px;
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+   background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+  
+  .home-page-heading {
+    font-size: 50px;
+    text-shadow: 2px 2px #ffd54f;
+    animation: home-bounce 1.5s infinite;
+    margin-top: 180px;
+  }
+  
+  .home-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-direction: column;
+  }
+  
+  /* Common style for all buttons */
+  .home-action-button {
+    display: inline-block;
+    padding: 15px 10px;
+    font-size: 30px;
+    border: none;
+    border-radius: 15px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: 600;
+  }
+  
+  /* Yellow button for 'Instructions' */
+  .home-yellow-button {
+    background-color: #ffeb3b;
+    color: #000;
+  }
+  
+  .home-yellow-button:hover {
+    animation: home-jiggle 0.5s infinite;
+    box-shadow: 0 0 20px rgb(255, 234, 0);
+  }
+  
+  /* Green button for 'Start Game' */
+  .home-green-button {
+    background-color: #4caf50;
+  }
+  
+  .home-green-button:hover {
+    animation: home-jiggle 0.5s infinite;
+    box-shadow: 0 0 20px rgb(149, 255, 0);
+  }
+  
+  /* Red button for 'Challenge Mode' */
+  .home-red-button {
+    background-color: #e53935;
+
+  }
+  
+  .home-red-button:hover {
+    animation: home-jiggle 0.5s infinite;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  }
+  
+  /* Jiggle animation for yellow button */
+  @keyframes home-jiggle {
+    0%, 100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+  
+  /* Bounce animation for heading */
+  @keyframes home-bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
