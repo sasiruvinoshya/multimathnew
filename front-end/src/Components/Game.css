@@ -3,7 +3,7 @@
 
 .multiplication-grid {
   border-collapse: collapse;
-  margin: 20px auto;
+  margin-top: 250px;
   width: 500px;
   height: auto;
 }
