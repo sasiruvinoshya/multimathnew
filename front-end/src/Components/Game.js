@@ -199,13 +199,11 @@ const Game = () => {
     return (
       <td key={number} className={`table-cell ${cellClass}`} onClick={() => {
         if (turn === player) {
-          const num1 = Math.floor(number / 9) + 1;
-          const num2 = number % 9 + 1;
-          handlePlayerInput(num1, num2);
+          handlePlayerInput(number);
         }
       }}>
-        {number}
-      </td>
+      {number}
+    </td>
     );
   };
 
@@ -231,14 +229,16 @@ const Game = () => {
           </button>
         </div>
         <table className="multiplication-grid">
-          <tbody>
-            {Array.from({ length: 6 }, (_, row) => (
-              <tr key={row}>
-                {board.slice(row * 6, (row + 1) * 6).map(renderTableCell)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  <tbody>
+    {Array.from({ length: 6 }, (_, rowIndex) => (
+      <tr key={rowIndex}>
+        {board.slice(rowIndex * 6, (rowIndex + 1) * 6).map((num) =>
+          renderTableCell(num)
+        )}
+      </tr>
+    ))}
+  </tbody>
+</table>
       </div>
       {showModal && (
           <div className="winner-modal">

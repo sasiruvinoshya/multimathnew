@@ -1,4 +1,37 @@
 /* Game.css */
+/* Game.css */
+
+.multiplication-grid {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 500px;
+  height: auto;
+}
+
+.multiplication-grid td {
+  border: 2px solid #333;
+  text-align: center;
+  font-size: 2rem;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+}
+
+.table-cell {
+  transition: background-color 0.4s ease;
+}
+
+.highlight-player {
+  background-color: rgba(0, 128, 255, 0.7);
+  color: white;
+}
+
+.highlight-computer {
+  background-color: rgba(255, 0, 128, 0.7);
+  color: white;
+}
+
+
 .game-container {
   display: flex;
   justify-content: space-between;
@@ -28,19 +61,7 @@ button:hover {
 }
 
 
-.table-cell {
-  transition: background-color 0.4s ease;
-}
 
-.highlight-player {
-  background-color: rgba(16, 16, 160, 0.958);
-  color: white;
-}
-
-.highlight-computer {
-  background-color: rgba(255, 166, 0, 0.938);
-  color: white;
-}
 
 .input-container {
   display: flex;
@@ -172,7 +193,6 @@ h3:hover {
   border: 5px solid green; /* Initial green border */
   animation: explode 0.8s ease forwards;
 }
-
 @keyframes explode {
   0% {
     transform: scale(0.3);
