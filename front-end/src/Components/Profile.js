@@ -122,14 +122,21 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <h1>Profile</h1>
-      <p><strong>Email:</strong> {email}</p>
-      <p><strong>Wins:</strong> {stats.wins}</p>
-      <p><strong>Losses:</strong> {stats.losses}</p>
-      <button className="logout-button" onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
+  <h1 className="profile-heading">Profile</h1>
+  <p className="profile-info">
+    <strong>Email:</strong> {email}
+  </p>
+  <p className="profile-info">
+    <strong>Wins:</strong> {stats.wins}
+  </p>
+  <p className="profile-info">
+    <strong>Losses:</strong> {stats.losses}
+  </p>
+  <button className="profile-logout-button" onClick={handleLogout}>
+    Logout
+  </button>
+</div>
+
   );
 };
 

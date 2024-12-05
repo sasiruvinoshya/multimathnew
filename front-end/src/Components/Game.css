@@ -6,6 +6,7 @@
   margin-top: 250px;
   width: 500px;
   height: auto;
+  background-color: #e6ede6df;
 }
 
 .multiplication-grid td {
@@ -27,7 +28,7 @@
 }
 
 .highlight-computer {
-  background-color: rgba(255, 0, 128, 0.7);
+  background-color: rgba(255, 119, 0, 0.7);
   color: white;
 }
 
