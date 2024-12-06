@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useCallback } from 'react';
 
-const sanitizeEmail = (email) => email.replace('@', '_').replace('.', '_');
+
 
 const Game = () => {
   const uniqueMultiplicationAnswers = [
